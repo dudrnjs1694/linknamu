@@ -22,9 +22,13 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-stone-100 font-sans text-stone-900 antialiased transition-colors dark:bg-stone-950 dark:text-stone-100">
+      <body className="min-h-screen bg-gradient-to-b from-[#FFF9F2] via-[#FDEBDD] to-[#F9D5C0] font-sans text-stone-800 antialiased transition-colors dark:from-[#1E1915] dark:via-[#241D18] dark:to-[#2E241E] dark:text-stone-100">
         {children}
       </body>
     </html>

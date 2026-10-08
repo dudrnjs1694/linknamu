@@ -2,7 +2,7 @@ import type { Profile } from "@/data/profile";
 
 export default function ProfileHeader({ profile }: { profile: Profile }) {
   const avatarClass =
-    "h-40 w-40 rounded-full object-cover ring-4 ring-white shadow-md dark:ring-stone-800";
+    "h-36 w-36 rounded-full object-cover ring-4 ring-white/80 shadow-[0_18px_40px_-12px_rgba(140,80,40,0.35)] dark:ring-white/10 dark:shadow-black/40";
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -12,13 +12,13 @@ export default function ProfileHeader({ profile }: { profile: Profile }) {
       ) : (
         <div
           aria-hidden
-          className={`${avatarClass} flex items-center justify-center bg-stone-300 text-5xl font-bold text-stone-600 dark:bg-stone-700 dark:text-stone-200`}
+          className={`${avatarClass} flex items-center justify-center bg-orange-200 text-5xl font-bold text-orange-700 dark:bg-stone-700 dark:text-stone-200`}
         >
           {profile.name.charAt(0)}
         </div>
       )}
-      <h1 className="mt-4 text-xl font-bold">{profile.name}</h1>
-      <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{profile.bio}</p>
+      <h1 className="mt-6 text-xl font-bold tracking-tight">{profile.name}</h1>
+      <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-400">{profile.bio}</p>
     </div>
   );
 }

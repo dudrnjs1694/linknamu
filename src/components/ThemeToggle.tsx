@@ -25,7 +25,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg shadow-sm ring-1 ring-stone-200 transition hover:scale-105 dark:bg-stone-900 dark:ring-stone-800"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/50 text-lg shadow-sm backdrop-blur-md transition duration-300 hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
     >
       <span aria-hidden>{dark ? "☀️" : "🌙"}</span>
     </button>

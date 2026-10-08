@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: [
+          "Pretendard",
           "Apple SD Gothic Neo",
           "Malgun Gothic",
           "Noto Sans KR",

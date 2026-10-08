@@ -19,7 +19,7 @@ export default function LinkCard({ link }: { link: LinkItem }) {
       target="_blank"
       rel="noopener noreferrer"
       onClick={trackClick}
-      className="block rounded-2xl bg-white px-5 py-4 text-center font-medium shadow-sm ring-1 ring-stone-200 transition hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] dark:bg-stone-900 dark:ring-stone-800 dark:hover:bg-stone-800"
+      className="block rounded-2xl border border-white/60 bg-white/50 px-5 py-4 text-center font-medium shadow-[0_8px_24px_-12px_rgba(140,80,40,0.25)] backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/70 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:shadow-black/30 dark:hover:bg-white/10"
     >
       {link.title}
     </a>
