@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { combineVerdicts, compareScores } from "../compare";
 import { cm360At, deltaSlider, meanAndSd, ratio, sessionLapCheck, todayDeltaByDistance, todayDeltaByDpi } from "../math";
 import { interpolateScopes } from "../interp";
-import { applyScopeMode } from "../presets";
+import { applyScopeMode, keepOffsets } from "../presets";
 import { emptyState, validateState } from "../schema";
 import { daysUntilUnlock, exportState, importState } from "../storage";
 
@@ -74,6 +74,11 @@ describe("presets / interp (§6-E, §6-F)", () => {
     expect(r.x6).toBeGreaterThanOrEqual(40);
     expect(r.x6).toBeLessThanOrEqual(44);
   });
+  it("내 배율 간격 유지 (Phase 0 실측 본인 감도)", () => {
+    const mine = { targeting: 30, scoping: 30, x2: 28, x3: 25, x4: 23, x6: 20, x8: 18, x15: 15 };
+    const r = keepOffsets(30, mine, 34);
+    expect([r.scoping, r.x2, r.x4, r.x15]).toEqual([34, 32, 27, 19]);
+  });
   it("보간: 한 점만 있으면 전부 그 값", () => {
     const r = interpolateScopes({ x4: 45 });
     expect(Object.values(r).every((x) => x === 45)).toBe(true);
@@ -93,6 +98,8 @@ describe("schema / storage (§7)", () => {
   });
   it("범위 밖 거부, 흔치 않은 D는 경고", () => {
     expect(validateState({ ...emptyState(1), card: { ...card, general: 101 } }).ok).toBe(false);
+    expect(validateState({ ...emptyState(1), card: { ...card, vertical: 2.01 } }).ok).toBe(false);
+    expect(validateState({ ...emptyState(1), card: { ...card, vertical: 1.15 } }).ok).toBe(true);
     const r = validateState({
       ...emptyState(1),
       d: { samples: [350], G: 50, view: "tpp", angle: 360, measuredAt: "2026-10-18T00:00:00Z" },

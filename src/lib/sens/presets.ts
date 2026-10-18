@@ -44,9 +44,24 @@ export type ScopeMode = "unified" | "presetA" | "custom";
 
 const clamp = (n: number) => Math.min(100, Math.max(1, n));
 
-/** 모드에 따른 조준·조준경 값. 통일 모드는 전부 일반값. */
+/**
+ * 모드에 따른 조준·조준경 값.
+ * - unified: 조준·스코프 모드 = 일반. 통합 스코프 감도 ON이면 게임이 2~15배율을 스코프 모드 값으로 통일한다(Phase 0 B2 실측).
+ * - presetA: 일반 + PRESET_A.
+ */
 export function applyScopeMode(general: number, mode: Exclude<ScopeMode, "custom">): Record<ScopeKey, number> {
   const out = {} as Record<ScopeKey, number>;
   for (const k of SCOPE_KEYS) out[k] = mode === "unified" ? general : clamp(general + PRESET_A[k]);
+  return out;
+}
+
+/** 현재 배율 간격(일반 대비 Δ)을 유지한 채 일반 값만 바꾼다. 사용자 습관 유지용. */
+export function keepOffsets(
+  oldGeneral: number,
+  oldScopes: Record<ScopeKey, number>,
+  newGeneral: number,
+): Record<ScopeKey, number> {
+  const out = {} as Record<ScopeKey, number>;
+  for (const k of SCOPE_KEYS) out[k] = clamp(newGeneral + (oldScopes[k] - oldGeneral));
   return out;
 }

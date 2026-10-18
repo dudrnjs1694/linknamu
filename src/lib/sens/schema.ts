@@ -48,7 +48,8 @@ const isIso = (x: unknown) => typeof x === "string" && !Number.isNaN(Date.parse(
 function checkCard(c: unknown, path: string): string | null {
   if (!isObj(c)) return `${path}: 객체가 아님`;
   if (!isInt(c.general, 1, 100)) return `${path}.general: 1~100 정수가 아님`;
-  if (typeof c.vertical !== "number" || c.vertical <= 0 || c.vertical > 5) return `${path}.vertical: 범위 밖`;
+  // 인게임 수직 감도 배수 범위 0~2 (Phase 0 B4 실측)
+  if (typeof c.vertical !== "number" || c.vertical < 0 || c.vertical > 2) return `${path}.vertical: 0~2 범위 밖`;
   if (!isObj(c.scopes)) return `${path}.scopes: 객체가 아님`;
   for (const [k, val] of Object.entries(c.scopes)) if (!isInt(val, 1, 100)) return `${path}.scopes.${k}: 1~100 정수가 아님`;
   if (c.view !== "tpp" && c.view !== "fpp") return `${path}.view: tpp/fpp가 아님`;
