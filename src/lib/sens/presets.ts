@@ -3,16 +3,32 @@
 export const SCOPE_KEYS = ["targeting", "scoping", "x2", "x3", "x4", "x6", "x8", "x15"] as const;
 export type ScopeKey = (typeof SCOPE_KEYS)[number];
 
+/** 인게임 메뉴 이름 (Phase 0 B1 실측, 설정 → 컨트롤 → 감도 → 마우스). 키 순서 = 메뉴 순서 = 복원 카드 순서. */
 export const SCOPE_LABEL: Record<ScopeKey, string> = {
-  targeting: "조준",
-  scoping: "조준경",
-  x2: "2배율",
-  x3: "3배율",
-  x4: "4배율",
-  x6: "6배율",
-  x8: "8배율",
-  x15: "15배율",
+  targeting: "조준 감도",
+  scoping: "스코프 모드 감도",
+  x2: "2배율 스코프 감도",
+  x3: "3배율 스코프 감도",
+  x4: "4배율 스코프 감도",
+  x6: "6배율 스코프 감도",
+  x8: "8배율 스코프 감도",
+  x15: "15배율 스코프 감도",
 };
+
+/** 복원 카드에 쓰는 전체 메뉴 순서 (Phase 0 B1 실측). 통합 스코프 감도는 토글. */
+export const MENU_ORDER = [
+  { key: "general", label: "일반 상태 감도" },
+  { key: "vertical", label: "수직 감도 배수" },
+  { key: "targeting", label: "조준 감도" },
+  { key: "scoping", label: "스코프 모드 감도" },
+  { key: "unified", label: "통합 스코프 감도" },
+  { key: "x2", label: "2배율 스코프 감도" },
+  { key: "x3", label: "3배율 스코프 감도" },
+  { key: "x4", label: "4배율 스코프 감도" },
+  { key: "x6", label: "6배율 스코프 감도" },
+  { key: "x8", label: "8배율 스코프 감도" },
+  { key: "x15", label: "15배율 스코프 감도" },
+] as const;
 
 /** 보간 축에서의 배율 (조준은 보간 대상 아님) */
 export const ZOOM: Record<Exclude<ScopeKey, "targeting">, number> = {
